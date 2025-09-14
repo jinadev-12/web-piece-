@@ -1,8 +1,27 @@
 import "./Hero.css";
-import React, { useState, useEffect } from "react";
+import { gsap } from "gsap";
+
+import React, { useState, useEffect,useRef } from "react";
 import images from "./assets/images-obj";
 
 function Hero() {
+  const headingRef = useRef(null);
+const paraRef = useRef(null);
+  useEffect(() => {
+    gsap.fromTo(
+      headingRef.current,
+      { opacity: 0,y:20 },
+      { opacity: 1, duration: 1.5 ,y:0,ease: "power2.out",delay: 0.2}
+    );
+    gsap.fromTo(
+      paraRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1.5, ease: "power2.out", delay: 0.5 }
+    );
+  }, []);
+
+  
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -16,11 +35,11 @@ function Hero() {
     <div className="w-full bg-gray-300 py-10 h-auto">
       {/* Heading */}
       <div className="mt-[30px] text-center px-4">
-        <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
+        <h1 ref={headingRef} className="text-5xl md:text-6xl font-extrabold leading-tight">
            HIRE <span className="text-primary">TALENT</span>. BUILD {" "}
           <span className="text-secondary">FASTER</span>. {" "}
         </h1>
-        <p className=" font-medium p-4 text-center text-lg text-gray-900">
+        <p ref={paraRef} className=" font-medium p-4 text-center text-lg text-gray-900">
          <span className="text-3xl text-primary">"</span> Connect with skilled freelancers and accelerate your projects with
           top-tier talent. <span className="text-primary text-3xl" >"</span>
         </p>
@@ -54,4 +73,3 @@ function Hero() {
 }
 
 export default Hero;
-
